@@ -17,8 +17,11 @@ Vagrant.configure("2") do |config|
   end
   # Private network (required for nfs)
   config.vm.network "private_network", ip: "192.168.99.100"
+
+  #Shared folders
+  config.vm.synced_folder '.', '/vagrant'
   # Use NFS for shared folders for better performance
-  config.vm.synced_folder '.', '/vagrant', :nfs => { :mount_options => ["dmode=777","fmode=777"] }
+  # config.vm.synced_folder '.', '/vagrant', :nfs => { :mount_options => ["dmode=777","fmode=777"] }
   config.vm.box = "ubuntu/trusty64"
 
   config.vm.provision :docker
