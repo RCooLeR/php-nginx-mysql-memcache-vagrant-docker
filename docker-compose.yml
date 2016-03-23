@@ -1,0 +1,41 @@
+app:
+  image: busybox:latest
+  volumes:
+    - ./app/:/var/www/html:rw
+data:
+  image: busybox:latest
+  volumes:
+    - /var/lib/mysql
+nginx:
+  build: ./nginx/
+  ports:
+    - "80:80"
+  links:
+    - php
+  volumes_from:
+    - app
+php:
+  build: ./php/
+  expose:
+    - 9000
+  links:
+    - mysql
+    - memcached
+  volumes_from:
+    - app
+  working_dir: '/var/www/html'
+mysql:
+  build: ./mysql/
+  ports:
+   - "3306:3306"
+  volumes_from:
+    - data
+  environment:
+    MYSQL_ROOT_PASSWORD: pass
+    MYSQL_DATABASE: db_name
+    MYSQL_USER: user
+    MYSQL_PASSWORD: user_pass
+memcached:
+  image: memcached:latest
+  ports:
+   - "11211:11211"
