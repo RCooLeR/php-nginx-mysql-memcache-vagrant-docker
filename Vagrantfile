@@ -26,8 +26,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :docker
   config.vm.provision :docker_compose, yml: ["/vagrant/docker-compose.yml"], project_name: "<App>", run: "always"
-  config.vm.provision :shell, :inline => "sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"cgroup_enable=memory swapaccount=1\"/g'  /etc/default/grub"
-  config.vm.provision :shell, :inline => "sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub"
-  config.vm.provision :shell, :inline => "update-grub"
-  config.vm.provision :shell, :inline => "shutdown -r now"
+  #config.vm.provision :shell, :inline => "sed -i 's/GRUB_CMDLINE_LINUX=\"\"/GRUB_CMDLINE_LINUX=\"cgroup_enable=memory swapaccount=1\"/g'  /etc/default/grub"
+  #config.vm.provision :shell, :inline => "sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub"
+  #config.vm.provision :shell, :inline => "update-grub"
+  #config.vm.provision :shell, :inline => "shutdown -r now"
 end
